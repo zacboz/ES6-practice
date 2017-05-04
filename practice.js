@@ -242,3 +242,87 @@ function findWhere(array, criteria) {
 
 findWhere(ladders, { height: 25 });
 // result: { id:3, height: 25 }
+
+//every and some helper method
+//every will see if everything meets criteria or not, maybe only some of them meet criteria
+var computers = [
+  { name: 'Apple', ram: 24 },
+  { name: 'Compaq', ram: 4 },
+  { name: 'Acer', ram: 32 },
+];
+
+
+computers.every(function(computer){
+	return computer.ram > 16;
+});
+//returns false
+
+//some will return true if some meet criteria
+computers.some(function(computer){
+	return computer.ram > 16;
+});
+//returns true
+
+var names = [
+	"Alex",
+  "Zachary",
+  "Sam"
+];
+
+names.every(function(name){
+	return name.length > 4;
+});
+//returns false
+
+names.some(function(name){
+	return name.length > 4;
+});
+//returns true
+
+//real example login validation
+function Field(value) {
+	this.value = value;
+}
+
+var username = new Field("2cool");
+var password = new Field("my_password");
+
+Field.prototype.validate = function(){
+	return this.value.length > 0;
+}
+
+var fields = [username, password];
+
+var formIsValid = fields.every(function(field){
+	return field.validate();
+});
+
+if (formIsValid){
+  alert("Submit!");
+} else {
+	alert("Error");
+}
+
+// Given an array of users, return 'true' if every user has submitted a request form.
+// Assign the result to the variable 'hasSumbmitted'.
+var users = [
+  { id: 21, hasSubmitted: true },
+  { id: 62, hasSubmitted: false },
+  { id: 4, hasSubmitted: true }
+];
+
+var hasSubmitted = users.every(function(user){
+    return user.hasSubmitted === true;
+});
+
+// Given an array of network objects representing network requests, assign the boolean
+// 'true' to the variable 'inProgress' if any network request has a 'status' of 'pending'.
+var requests = [
+  { url: '/photos', status: 'complete' },
+  { url: '/albums', status: 'pending' },
+  { url: '/users', status: 'failed' }
+];
+
+var inProgress = requests.some(function(request){
+    return request.status === 'pending';
+});
