@@ -326,3 +326,83 @@ var requests = [
 var inProgress = requests.some(function(request){
     return request.status === 'pending';
 });
+
+//reduce helper method
+
+var numbers = [ 10, 20, 30];
+var sum = 0;
+
+for (var i = 0; i < numbers.length; i++){
+	sum += numbers[i];
+}
+
+"---"
+
+numbers.reduce(function(sum, number){
+	return sum + number;
+}, 0);
+//0 is the first argument and intial value.
+
+var primaryColors = [
+  { color: 'red'},
+  { color: 'yellow'},
+  { color: 'blue'}
+];
+
+primaryColors.reduce(function(previous, primaryColor){
+	previous.push(primaryColor.color);
+  return previous;
+}, []);
+
+//popular white board problem
+function balancedParens(str) {
+	return !str.split("").reduce(function(previous, char){
+    if (previous < 0) { return previous; }
+  	if (char === "(") { return ++previous; }
+    if (char === ")") { return --previous; }
+  }, 0);
+}
+
+balancedParens(")(");//return false, first condition
+('(())')//counter 0, return true
+('())')//counter -1, return false
+
+// Use the 'reduce' helper to find the sum of all the distances traveled.
+// Assign the result to the variable 'totalDistance'
+
+var trips = [{ distance: 34 }, { distance: 12 } , { distance: 1 }];
+
+var totalDistance = trips.reduce(function(sum, trip){
+    return sum + trip.distance;
+}, 0);
+
+// Use the 'reduce' helper to create an object that tallies the number of sitting and standing desks.
+// The object returned should have the form '{ sitting: 3, standing: 2 }'.  The initial value has been provided to you.
+// Hint: Don't forget to return the accumulator object (the first argument to the iterator function)
+var desks = [
+  { type: 'sitting' },
+  { type: 'standing' },
+  { type: 'sitting' },
+  { type: 'sitting' },
+  { type: 'standing' }
+];
+
+var deskTypes = desks.reduce(function(acc, desk) {
+    if (desk.type === 'sitting') { acc.sitting++; }
+    if (desk.type === 'standing') { acc.standing++; }
+		return acc;
+}, { sitting: 0, standing: 0 });
+
+// Another really hard one!  Write a function called 'unique' that will remove all the duplicate values from an array.
+var numbers = [1, 1, 2, 3, 4, 4];
+
+function unique(array) {
+  return array.reduce(function(previous, item){
+      if(!previous.find(function(previous){
+      	return previous === item;
+      })) {
+        previous.push(item);
+      }
+      return previous;
+  }, []);
+}
