@@ -172,3 +172,73 @@ function reject(array, iteratorFunction) {
       return !iteratorFunction(item);
   });
 }
+
+// find helper method
+
+// traditional for loop method:
+var users = [
+  { name: 'Jill' },
+  { name: 'Alex' },
+  { name: 'Bill' }
+];
+
+var user;
+
+for (var i = 0; i < users.length; i++){
+	if (users[i].name === 'Alex'){
+    user = users[i];
+    break;
+  }
+ }
+
+user;
+
+// find:
+var users = [
+  { name: 'Jill' },
+  { name: 'Alex' },
+  { name: 'Bill' }
+];
+
+users.find(function(user){
+	return user.name === 'Alex';
+});
+
+var posts = [
+  { id: 1, title: 'new post' },
+  { id: 2, title: 'old post' }
+];
+
+var comment = { postId: 1, content: 'great post' };
+
+function postForComment(posts, comment){
+	return posts.find(function(post) {
+    return post.id === comment.postId;
+  });
+}
+
+postForComment(posts, comment);
+
+// Really Challenging: Custom findWhere Helper
+//
+// This is a tough one!  The most common find operation is to an object that has a given property.
+// Rather than writing out a full function every time, it would be great if we has a shorthand
+// syntax to find an object like this:
+// findWhere(ladders, { height: '20 feet' });
+// The object { ladders: '20 feet' } should be used as the search criteria -
+// we would want to find a ladder whose 'height' property was '20 feet';
+
+var ladders = [
+  { id: 1, height: 20 },
+  { id: 3, height: 25 }
+];
+
+function findWhere(array, criteria) {
+    var key = Object.keys(criteria);
+    return array.find(function(item){
+        return item[key] === criteria[key];
+  });
+}
+
+findWhere(ladders, { height: 25 });
+// result: { id:3, height: 25 }
