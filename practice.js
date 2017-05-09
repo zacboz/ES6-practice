@@ -20,7 +20,6 @@ function adder(number) {
 }
 
 numbers.forEach(adder);
-sum;
 
 //2. map helper method - returns a result array, needs return keyword
 //modify records of list of data
@@ -37,9 +36,6 @@ var doubled = numbers.map(function(number){
 	return number * 2;
 })
 
-doubled;
-doubledNum;
-
 //pluck
 var cars = [
   { model: 'Buick', price: 'cheap' },
@@ -49,8 +45,6 @@ var cars = [
 var prices = cars.map(function(car) {
 	return car.price;
 });
-
-prices;
 
 // Using map, create a new array that contains the distance / time value from each trip.
 // In other words, the new array should contain the (distance / time) value.
@@ -64,8 +58,6 @@ var trips = [
 var speeds = trips.map(function(trip){
     return trip.distance / trip.time;
 });
-
-speeds;
 
 // This is a hard one!
 // Implement a 'pluck' function.  Pluck should accept an array and a string
@@ -159,7 +151,6 @@ var filteredUsers = users.filter(function(user){
 // Reject should work in the opposite way of 'filter' - if a function returns 'true',
 // the item should *not* be included in the new array.  Hint: you can reuse filter.
 //
-//
 // For example:
 
 var numbers = [10, 20, 30];
@@ -174,7 +165,7 @@ function reject(array, iteratorFunction) {
   });
 }
 
-// find helper method
+//4. find helper method
 
 // traditional for loop method:
 var users = [
@@ -192,9 +183,7 @@ for (var i = 0; i < users.length; i++){
   }
  }
 
-user;
-
-// find:
+// find implementation:
 var users = [
   { name: 'Jill' },
   { name: 'Alex' },
@@ -204,6 +193,7 @@ var users = [
 users.find(function(user){
 	return user.name === 'Alex';
 });
+//only returns the first one, not the second Alex (best for ids)
 
 var posts = [
   { id: 1, title: 'new post' },
@@ -221,7 +211,7 @@ function postForComment(posts, comment){
 postForComment(posts, comment);
 
 // Really Challenging: Custom findWhere Helper
-//
+
 // This is a tough one!  The most common find operation is to an object that has a given property.
 // Rather than writing out a full function every time, it would be great if we has a shorthand
 // syntax to find an object like this:
@@ -241,11 +231,12 @@ function findWhere(array, criteria) {
   });
 }
 
-findWhere(ladders, { height: 25 });
-// result: { id:3, height: 25 }
+findWhere(ladders, { height: 25 });// result: { id:3, height: 25 }
 
-//every and some helper method
+
+//5.every and some helper method (validation)
 //every will see if everything meets criteria or not, maybe only some of them meet criteria
+
 var computers = [
   { name: 'Apple', ram: 24 },
   { name: 'Compaq', ram: 4 },
@@ -265,7 +256,7 @@ computers.some(function(computer){
 //returns true
 
 var names = [
-	"Alex",
+	"Dave",
   "Zachary",
   "Sam"
 ];
@@ -292,6 +283,7 @@ Field.prototype.validate = function(){
 	return this.value.length > 0;
 }
 
+//every example
 var fields = [username, password];
 
 var formIsValid = fields.every(function(field){
@@ -314,7 +306,7 @@ var users = [
 
 var hasSubmitted = users.every(function(user){
     return user.hasSubmitted === true;
-});
+});//return false
 
 // Given an array of network objects representing network requests, assign the boolean
 // 'true' to the variable 'inProgress' if any network request has a 'status' of 'pending'.
@@ -326,9 +318,9 @@ var requests = [
 
 var inProgress = requests.some(function(request){
     return request.status === 'pending';
-});
+});//returns true
 
-//reduce helper method
+//6. reduce helper method - initial value is first agrument
 
 var numbers = [ 10, 20, 30];
 var sum = 0;
@@ -336,8 +328,6 @@ var sum = 0;
 for (var i = 0; i < numbers.length; i++){
 	sum += numbers[i];
 }
-
-"---"
 
 numbers.reduce(function(sum, number){
 	return sum + number;
@@ -349,7 +339,7 @@ var primaryColors = [
   { color: 'yellow'},
   { color: 'blue'}
 ];
-
+//condense list, collect values into array
 primaryColors.reduce(function(previous, primaryColor){
 	previous.push(primaryColor.color);
   return previous;
@@ -361,6 +351,7 @@ function balancedParens(str) {
     if (previous < 0) { return previous; }
   	if (char === "(") { return ++previous; }
     if (char === ")") { return --previous; }
+    return previous;
   }, 0);
 }
 
@@ -399,7 +390,7 @@ var numbers = [1, 1, 2, 3, 4, 4];
 
 function unique(array) {
   return array.reduce(function(previous, item){
-      if(!previous.find(function(previous){
+      if(!previous.find(function(previous){ //if found = false, to continue on
       	return previous === item;
       })) {
         previous.push(item);
