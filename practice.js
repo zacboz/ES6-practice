@@ -461,3 +461,49 @@ const profile = {
 };
 
 //10. Enhanced Oject Literals
+
+//es5
+function createBookShop(inventory){
+  return {
+    inventory: inventory,//exact same name
+    inventoryValue: function() { //remove keyword function and colon
+      return this.inventory.reduce((total, book) => total + book.price, 0);
+    },
+    priceForTitle: function(title){
+      return this.inventory.find(book => book.title === title).price
+    }
+  };
+}
+//es6
+function createBookShop(inventory){
+  return {
+    inventory,//exact same name condense to one name
+    inventoryValue() {
+      return this.inventory.reduce((total, book) => total + book.price, 0);
+    },
+    priceForTitle(title){
+      return this.inventory.find(book => book.title === title).price
+    }
+  };
+}
+
+function saveFile() {
+  $.ajax({ method: 'POST', url: url, data: data });
+}
+//condensed
+function saveFile() {
+  $.ajax({ method: 'POST', url, data });
+}
+
+const url = "http://fileupload.com";
+const data = { color: 'red' };
+
+saveFile(url, data);
+
+
+const inventory = [
+  { title: 'Harry Potter', price: 10 },
+  { title: 'Eloquent Javascript', price: 15 }
+];
+
+const bookShop = createBookShop(inventory);
