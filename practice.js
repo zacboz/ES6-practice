@@ -1,20 +1,19 @@
-//forEach helper method
+//1. forEach helper method - this function runs one time for every element in array
 
 var colors = [ 'red', 'blue', 'green' ];
 
+//for loop example
 for (var i = 0; i < colors.length; i++) {
   console.log(colors[i]);
 }
-
+//now implementing forEach
 colors.forEach(function(color) {
 	console.log(color);
 });
 
 //create an array of numbers, create var to hold sum, loop over array incrementing sum var, print sum
-
 var numbers = [1,2,3,4,5];
 var sum = 0;
-
 
 function adder(number) {
 	sum += number;
@@ -23,15 +22,17 @@ function adder(number) {
 numbers.forEach(adder);
 sum;
 
+//2. map helper method - returns a result array, needs return keyword
+//modify records of list of data
 
-//map helper method
 var numbers = [1, 2, 3];
-var doubledNum = [];
 
+//for loop example
+var doubledNum = [];
 for (var i = 0; i < numbers.length; i++){
   doubledNum.push(numbers[i] * 2);
 }
-
+//implementing map
 var doubled = numbers.map(function(number){
 	return number * 2;
 })
@@ -39,6 +40,7 @@ var doubled = numbers.map(function(number){
 doubled;
 doubledNum;
 
+//pluck
 var cars = [
   { model: 'Buick', price: 'cheap' },
   { model: 'Camaro', price: 'expensive' },
@@ -75,7 +77,7 @@ function pluck(array, property) {
     });
 }
 
-// filter helper method
+//3. filter helper method - filter out or sort products, by pushing the value we want to a new array
 
 var products = [
   { name: 'cucumber', type: 'vegetable' },
@@ -84,6 +86,7 @@ var products = [
   { name: 'orange', type: 'fruit' },
 ];
 
+//for loop example
 var filteredProducts = [];
 
 for (var i = 0; i < products.length; i++){
@@ -92,10 +95,9 @@ for (var i = 0; i < products.length; i++){
   }
 }
 
-filteredProducts;
-
+//filter implementation
 products.filter(function(product){
-	return product.type === 'vegetable';
+	return product.type === 'vegetable';//boolean statement
 });
 
 var products = [
@@ -106,7 +108,6 @@ var products = [
 ];
 
 //type is vegetable, quantity is greater than 0, price is less than 10
-
 products.filter(function(product) {
 	return product.type === 'vegetable'
     && product.quantity > 0
@@ -406,3 +407,7 @@ function unique(array) {
       return previous;
   }, []);
 }
+
+//const and let - WHY tell us intent
+//const is used declare variables that expect value to never change ... will through error if try to change
+//let expect value to change over time
