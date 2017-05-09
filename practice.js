@@ -399,6 +399,65 @@ function unique(array) {
   }, []);
 }
 
-//const and let - WHY tell us intent
+//7. const and let - WHY tell us intent
 //const is used declare variables that expect value to never change ... will through error if try to change
 //let expect value to change over time
+
+//8. template strings or template literals
+// whenever using strings with multiple varibles use template strings
+example:
+function getMessage() {
+  const year = new Date().getFullYear();
+  return `the year is ${year}`; //you could put any valid javascript expression inside brackets
+}
+// Refactor the function to use template strings
+function fullName(firstName, lastName) {
+  return `${firstName} ${lastName}`;
+}
+
+//9. fat arrow function
+// alternative syntax:
+const add = (a, b) => a + b; // don't need return key word because curly braces not used for single javascript expressions
+// or
+const add = (a, b) => {
+  return a + b;
+}
+
+//also because single argument drop parenthesis around argument
+const double = number1 => number * 2;
+
+const numbers = [1,2,3];
+numbers.map(number => 2 * number); //refactor for fat arrow function
+
+const team = {
+  members: ['Jane', 'Bill'],
+  teamName: 'Super Squad',
+  teamSummary: function(){
+    return this.members.map(function(member){
+      return `${member} is on team ${this.teamName}`; //this is lost
+    });
+  }
+}; //returns error
+// solutions: .bind(this) - es5
+// var self = this;
+
+// es6 solution - fat arrow uses lexical(placement on this term is how its interpreted) this,
+const team = {
+  members: ['Jane', 'Bill'],
+  teamName: 'Super Squad',
+  teamSummary: function(){
+    return this.members.map((member) => {
+      return `${member} is on team ${this.teamName}`; //this is lost
+    });
+  }
+};
+
+// Arrow Functions Aren't Always a Solution
+const profile = {
+    name: 'Alex',
+    getName: function() {
+       return this.name;
+    }
+};
+
+//10. Enhanced Oject Literals
