@@ -398,3 +398,111 @@ function unique(array) {
       return previous;
   }, []);
 }
+
+// Generators - Motherload of ES6 - HARD
+// forOf loops
+
+const colors = ['red', 'green', 'blue'];
+for (let color of colors) {
+  console.log(color);
+}
+
+const numbers = [1,2,3,4];
+let total = 0;
+for (let number of numbers) {
+  total += number;
+}
+
+function* numbers() {
+  yield;//keyword introduced with ES6
+}
+
+const gen = numbers();
+gen.next();//produces .next property
+//whats going on?
+
+function* shopping() {
+  //stuff on sidewalk
+  //walking down the sidewalk
+  //go into store with case
+  const stuffFromStore = yield 'cash';
+  //walking to laundry place
+  const cleanClothes = yield 'laundry';
+  //walking back home
+  return [ stuffFromStore, cleanClothes ];
+}
+//stuff in store
+const gen = shopping;
+gen.next();//leaving our house - first gen.next triggers shopping generator function
+//walked into the store
+//walking up and down the aisles
+//purchase out stuff
+gen.next('groceries');//leave store with groceries
+gen.next('clean clothes'); //how we advance thru generator and move to next yield
+
+function* colors() {
+  yield 'red';
+  yield 'blue';
+  yield 'green';
+}
+//works perfectly with for of loop
+const myColors = [];
+for (let color of colors()) {
+  myColors.push(color);
+}
+//generators to iterate through any data structure we want
+
+//real life example:
+const engineeringTeam = {
+  testingTeam,
+  size: 3,
+  department: 'Engineering',
+  lead: 'Jill',
+  manager: 'Alex',
+  engineer: 'Dave',
+  [Symbol.iterator]: function* () {
+    yield this.lead;
+    yield this.manager;
+    yield this.engineer;
+    yield* this.testingTeam;
+  }
+};
+
+// function* TeamIterator(team) { //put properties you want to iterate over
+//   yield team.lead;
+//   yield team.manager;
+//   yield team.engineer;
+//   yield* team.testingTeam;//trick for of loop to fall through this trap door
+// }
+const names = [];
+for (let name of engineeringTeam) {
+  names.push(name);
+}
+
+const testingTeam = {
+  lead: 'Amanda',
+  tester: 'Bill',
+  [Symbol.iterator]: function* () { //tells for of loop how to iterate over this object
+    yield this.lead;
+    yield this.tester
+  }
+};
+//symbol iterator - tool that teaches objects how to respond to for of loop
+
+class Comment {
+  constructor(content, children) {
+    this.content = content;
+    this.children = children;
+  }
+  *[Symbol.iterator]() {
+
+  }
+}
+
+const children = [
+ new Comment('good comment', []),
+ new Comment('bad comment', []),
+ new Comment('meh', [])
+];
+
+const tree = new Comment('Great post!', children);
