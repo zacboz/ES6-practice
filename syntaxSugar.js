@@ -202,4 +202,168 @@ function unshift(array, ...numbers) {
   return numbers.concat(array)
 }
 
-//13. Destructuring
+//13. Destructuring - decrease amount of code to write
+var expense {
+  type: 'Business',
+  amount: '$45 USD'
+}
+var type = expense.type;
+var amount = expense.amount;
+//es6
+const { type, amount } = expense;//needs to match
+
+//destructuring agrument objects
+var savedFiled = {
+  extension: '.jpg',
+  name: 'repost',
+  size: 14040
+};
+
+function fileSummary(file) {
+  return `the file${file.name}.${file.extension} is of size ${file.size}`;
+}
+//destructure
+function fileSummary({name, extension, size}) {
+  return `the file ${name}.${extension} is of size ${size}`;
+}
+
+//destructuring Arrays
+const companies = [
+  'Google',
+  'Facebook',
+  'Uber'
+];
+
+const [ name ] = companies; //es6
+cosnt firstCompany = companies[0]; //es5
+//element use square brackets
+//for properites use curly brackets, ie length
+
+//mixing array and objects for destructuring
+const companies = [
+  { name: 'Google', location: 'Mountain View' },
+  { name: 'Facebook', location: 'Menlo Park' },
+  { name: 'Uber', location: 'San Francisco' }
+];
+const [{ location }] = companies;//using both {} and [] to destructure
+
+const Google = {
+  location: ['Mountain View', 'New York', 'London']
+};
+
+const { locations: [ location ] } = Google; //or locations.location
+//when destructure properties order doesn't matter
+
+const points = [
+  [4, 5],
+  [10, 1],
+  [0, 40]
+];
+//want to intrepret like below
+[
+  { x: 4, y: 5},
+  { x: 10, y: 1},
+  { x: 0, y: 40}
+]
+points.map(([x, y]) => {
+  return { x, y };
+});
+
+// Array Destructuring in Practice
+// The 'classes' variable holds an array of arrays, where each array represents a
+// single class that a student is enrolled in.  Convert this array of arrays into an
+// array of objects, where each object has the keys 'subject', 'time', and 'teacher'
+// and assign the result to 'classesAsObject.  Use array destructuring and the map helper.
+// An array for a class has the form [subject, time, teacher]
+// The resulting data structure should look something like the following:
+// const classesAsObject = [{ subject: 'Geography', time: '2PM', teacher: 'Mrs. Larsen' }]
+const classes = [
+  [ 'Chemistry', '9AM', 'Mr. Darnick' ],
+  [ 'Physics', '10:15AM', 'Mrs. Lithun'],
+  [ 'Math', '11:30AM', 'Mrs. Vitalis' ]
+];
+
+const classesAsObject = classes.map(([subject, time, teacher]) => {
+   return { subject, time, teacher };
+});
+
+// Recursion with Destructuring
+// This one is probably the hardest exercise in the entire course!
+// Use array destructuring, recursion, and the rest/spread operators to create a
+// function 'double' that will return a new array with all values inside of it multiplied by two.
+// Do not use any array helpers! Sure, the map, forEach, or reduce helpers would make
+//  this extremely easy but give it a shot the hard way anyways :)
+//
+// Input: double([1,2,3])
+// Output:[2,4,6]
+//
+// Hint: Don't forget that with recursion you must add a base case so you don't get
+// an infinite call stack.  For example, if 'const [ number, ...rest ] = numbers' and
+//  number is undefined do you need to keep walking through the array?
+const numbers = [1,2,3];
+
+function double([num, ...rest]) {
+    if (!num) { return []; }
+    return [num * 2, ...double(rest) ];
+}
+
+//14. Introducing Classes - inheritance
+
+function Car(options) {
+  this.title = options.title;
+}
+
+Car.prototype.drive = function() {
+  return 'vroom';
+}
+//refactor in es6 Classes
+class Car {
+  constructor(title){
+    this.title = title
+  }//no comma needed
+  drive() {
+    return 'vroom';
+  }
+}
+const car = new Car({ title: 'Toyota' });
+car.drive(); //returns vroom
+
+//es5
+function Toyota(options) {
+  Car.call(this, options);
+  this.color = options.color;
+}
+
+Toyota.prototype = Object.create(Car.prototype);
+Toyota.prototype.constructor = Toyota;
+
+Toyota.prototype.honk = function() {
+  return 'beep';
+}
+//refactor to es6
+class Toyota extends Car{ //connect Car with Toyota
+  constructor(options) {
+    super(options); //super keyword Car.constructor()
+    this.color = options.color;
+  }
+  honk(){
+    return 'beep';
+  }
+}
+const toyota = new Toyota({ color: 'red', title: 'daily driver' });
+
+// Game Classes
+// You are a game developer tasked with setting up some basic classes for a new game
+// you are working on.  Create a class called 'Monster'.  In the constructor,
+// you'll need to do some basic setup for Monster whenever they are created.
+// Initialize the Monster's health to 100. - initialize means it needs to be in constructor
+// The constructor will be called with an 'options' object that has a 'name' property.
+// Assign the 'name' to the Monster
+class Monster {
+  constructor(options) {
+      this.health = 100;
+      this.name = options.name;
+  }
+}
+
+const monster = new Monster({ name: 'Big Foot' });
