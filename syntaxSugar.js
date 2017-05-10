@@ -367,3 +367,24 @@ class Monster {
 }
 
 const monster = new Monster({ name: 'Big Foot' });
+
+//native implementation of Promises
+promise = new Promise((resolve, reject) => {//this arguement are automatically apart of this function
+  resolve();
+});
+promise
+  .then(() => console.log('finally finished'))
+  .then(() => console.log('i was also ran!!'))
+  .catch(() => console.log('uh oh!!'));
+// .then only called if resolve
+// .catch only called if rejected
+
+//how are they used to produce asychronus code:
+
+//Fetch handler - function apart of the browser
+fetch(url)
+  .then(response = response.json()) //pulls readable json data
+  .then(data => console.log(data));
+
+//prefers axios, jquery etc over fetch
+//be cautious with fetch doesn't enter catch case above error code 300, only hits catch if network request fails
